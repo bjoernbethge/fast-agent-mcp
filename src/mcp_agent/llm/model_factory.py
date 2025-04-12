@@ -12,6 +12,7 @@ from mcp_agent.llm.providers.augmented_llm_deepseek import DeepSeekAugmentedLLM
 from mcp_agent.llm.providers.augmented_llm_generic import GenericAugmentedLLM
 from mcp_agent.llm.providers.augmented_llm_openai import OpenAIAugmentedLLM
 from mcp_agent.llm.providers.augmented_llm_openrouter import OpenRouterAugmentedLLM
+from mcp_agent.llm.providers.augmented_llm_ollama import OllamaAugmentedLLM
 from mcp_agent.mcp.interfaces import AugmentedLLMProtocol
 
 # from mcp_agent.workflows.llm.augmented_llm_deepseek import DeekSeekAugmentedLLM
@@ -25,6 +26,7 @@ LLMClass = Union[
     Type[PlaybackLLM],
     Type[DeepSeekAugmentedLLM],
     Type[OpenRouterAugmentedLLM],
+    Type[OllamaAugmentedLLM],
 ]
 
 
@@ -37,7 +39,7 @@ class Provider(Enum):
     DEEPSEEK = auto()
     GENERIC = auto()
     OPENROUTER = auto()
-
+    OLLAMA = auto()
 
 class ReasoningEffort(Enum):
     """Optional reasoning effort levels"""
@@ -67,6 +69,7 @@ class ModelFactory:
         "deepseek": Provider.DEEPSEEK,
         "generic": Provider.GENERIC,
         "openrouter": Provider.OPENROUTER,
+        "ollama": Provider.OLLAMA,
     }
 
     # Mapping of effort strings to enum values
@@ -100,6 +103,7 @@ class ModelFactory:
         "claude-3-opus-20240229": Provider.ANTHROPIC,
         "claude-3-opus-latest": Provider.ANTHROPIC,
         "deepseek-chat": Provider.DEEPSEEK,
+        "gemma3:4b": Provider.OLLAMA,
         #        "deepseek-reasoner": Provider.DEEPSEEK, reinstate on release
     }
 
@@ -115,6 +119,7 @@ class ModelFactory:
         "opus3": "claude-3-opus-latest",
         "deepseekv3": "deepseek-chat",
         "deepseek": "deepseek-chat",
+        "gemma3": "gemma3:4b",
     }
 
     # Mapping of providers to their LLM classes
@@ -125,6 +130,7 @@ class ModelFactory:
         Provider.DEEPSEEK: DeepSeekAugmentedLLM,
         Provider.GENERIC: GenericAugmentedLLM,
         Provider.OPENROUTER: OpenRouterAugmentedLLM,
+        Provider.OLLAMA: OllamaAugmentedLLM,
     }
 
     # Mapping of special model names to their specific LLM classes
