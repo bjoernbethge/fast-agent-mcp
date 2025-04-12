@@ -4,7 +4,4 @@ from mcp_agent.llm.providers.sampling_converter_anthropic import (
 from mcp_agent.llm.providers.sampling_converter_openai import (
     OpenAISamplingConverter,
 )
-from mcp_agent.llm.providers.sampling_converter_ollama import (
-    OllamaSamplingConverter,
-)
-__all__ = ["AnthropicSamplingConverter", "OpenAISamplingConverter", "OllamaSamplingConverter"]
+__all__ = ["AnthropicSamplingConverter", "OpenAISamplingConverter"]
